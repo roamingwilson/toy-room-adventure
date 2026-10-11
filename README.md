@@ -27,6 +27,20 @@ npm run build    # makes dist/index.html
 
 `npm run build` makes **one self-contained file: `dist/index.html`**. Copy it to the classroom computer (a USB stick works) and double-click it to open it in **Chrome or Edge**. It runs with no internet and no server.
 
+### Play it on any device (online link)
+
+The app is published at **https://roamingwilson.github.io/toy-room-adventure/**. Open that link on a tablet, phone, laptop or smartboard and it just works. After it loads once, it keeps working even if the internet drops.
+
+**After changing anything**, publish the new version with:
+
+```bash
+npm run deploy
+```
+
+This builds the app and uploads it to the `gh-pages` branch. GitHub Pages updates the link within about a minute.
+
+**On the same Wi-Fi, without internet:** run `npm run build`, then `npm run preview -- --host`, and open the "Network" address it prints (e.g. `http://192.168.1.105:4173`) on the other device.
+
 ### Before class
 1. Open the app and press **⛶ Fullscreen**.
 2. Press **▶ Play**. This switches on the sound (browsers need one tap first) and starts the class timer.
