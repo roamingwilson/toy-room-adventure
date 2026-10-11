@@ -1,0 +1,296 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #1d1b3a;
+  font-family: ui-rounded, 'SF Pro Rounded', 'Arial Rounded MT Bold', 'Varela Round', 'Comic Sans MS', system-ui, sans-serif;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+svg * {
+  transform-box: view-box;
+}
+
+/* ---------- generic motion helpers ---------- */
+.tap {
+  transition: transform 0.15s ease;
+}
+.tap:active {
+  transform: scale(0.94);
+}
+
+@keyframes wobble {
+  0%, 100% { transform: rotate(0); }
+  20% { transform: rotate(-9deg); }
+  40% { transform: rotate(8deg); }
+  60% { transform: rotate(-6deg); }
+  80% { transform: rotate(4deg); }
+}
+.wobble { animation: wobble 0.55s ease-in-out; }
+
+@keyframes hint-glow {
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(255, 220, 60, 0.6)); transform: scale(1); }
+  50% { filter: drop-shadow(0 0 26px rgba(255, 220, 60, 1)); transform: scale(1.06); }
+}
+.hint-glow { animation: hint-glow 1.2s ease-in-out infinite; }
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+.pulse { animation: pulse 1.2s ease-in-out infinite; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-16px); }
+}
+.float { animation: float 3s ease-in-out infinite; }
+
+@keyframes shake-hard {
+  0%, 100% { transform: translate(0, 0) rotate(0); }
+  10% { transform: translate(-6px, 2px) rotate(-5deg); }
+  20% { transform: translate(6px, -3px) rotate(5deg); }
+  30% { transform: translate(-7px, 0) rotate(-6deg); }
+  40% { transform: translate(7px, 3px) rotate(6deg); }
+  50% { transform: translate(-5px, -2px) rotate(-4deg); }
+  60% { transform: translate(5px, 2px) rotate(4deg); }
+  70% { transform: translate(-3px, 0) rotate(-3deg); }
+  80% { transform: translate(3px, -1px) rotate(2deg); }
+}
+.shake-hard { animation: shake-hard 0.6s ease-in-out infinite; }
+
+@keyframes pop-in {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.18); opacity: 1; }
+  80% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+.pop-in { animation: pop-in 0.6s cubic-bezier(0.2, 0.9, 0.3, 1.3) both; }
+
+@keyframes jump {
+  0%, 100% { transform: translateY(0) scale(1, 1); }
+  15% { transform: translateY(0) scale(1.1, 0.88); }
+  45% { transform: translateY(-70px) scale(0.95, 1.06); }
+  75% { transform: translateY(0) scale(1.08, 0.92); }
+}
+.jump { animation: jump 0.7s ease-out; }
+
+@keyframes spin-reveal {
+  0% { transform: rotate(0) scale(1); }
+  60% { transform: rotate(360deg) scale(1.12); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+.spin-reveal { animation: spin-reveal 1.4s cubic-bezier(0.3, 0.8, 0.3, 1) both; }
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(6deg); }
+}
+.sway { animation: sway 2.4s ease-in-out infinite; transform-origin: 50% 100%; }
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.fade-in { animation: fade-in 0.5s ease both; }
+
+@keyframes rise-in {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.rise-in { animation: rise-in 0.5s ease-out both; }
+
+/* ---------- Say it! bubble ---------- */
+@keyframes sayit {
+  0%, 100% { transform: scale(1) rotate(-2deg); }
+  50% { transform: scale(1.12) rotate(2deg); }
+}
+.sayit { animation: sayit 0.9s ease-in-out infinite; }
+@keyframes sayit-bar {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
+}
+
+/* ---------- Teddy moods ---------- */
+.teddy .t-all { transform-origin: 100px 236px; }
+.teddy .t-head { transform-origin: 100px 120px; transition: transform 0.3s; }
+.teddy .t-arm-l { transform-origin: 62px 130px; transition: transform 0.35s cubic-bezier(0.3, 1.4, 0.5, 1); }
+.teddy .t-arm-r { transform-origin: 138px 130px; transition: transform 0.35s cubic-bezier(0.3, 1.4, 0.5, 1); }
+.teddy .t-eyes { transform-origin: 100px 66px; }
+
+@keyframes t-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+@keyframes t-blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
+.teddy-idle .t-jump, .teddy-think .t-jump { animation: t-bob 2.4s ease-in-out infinite; }
+.teddy .t-eyes { animation: t-blink 4s infinite; }
+
+@keyframes t-wave { from { transform: rotate(-125deg); } to { transform: rotate(-160deg); } }
+.teddy-wave .t-arm-r { animation: t-wave 0.4s ease-in-out infinite alternate; }
+.teddy-wave .t-jump { animation: t-bob 1.2s ease-in-out infinite; }
+
+@keyframes t-laugh { 0%, 100% { transform: rotate(-3deg) translateY(0); } 50% { transform: rotate(3deg) translateY(-4px); } }
+.teddy-laugh .t-jump { animation: t-laugh 0.22s linear infinite; transform-origin: 100px 230px; }
+.teddy-laugh .t-arm-l { transform: rotate(30deg); }
+.teddy-laugh .t-arm-r { transform: rotate(-30deg); }
+
+@keyframes t-dance { 0%, 100% { transform: rotate(-9deg) translateY(0); } 25% { transform: rotate(0) translateY(-14px); } 50% { transform: rotate(9deg) translateY(0); } 75% { transform: rotate(0) translateY(-14px); } }
+@keyframes t-arm-l-dance { 0%, 100% { transform: rotate(140deg); } 50% { transform: rotate(100deg); } }
+@keyframes t-arm-r-dance { 0%, 100% { transform: rotate(-100deg); } 50% { transform: rotate(-140deg); } }
+.teddy-dance .t-jump { animation: t-dance 0.9s ease-in-out infinite; transform-origin: 100px 230px; }
+.teddy-dance .t-arm-l { animation: t-arm-l-dance 0.45s ease-in-out infinite; }
+.teddy-dance .t-arm-r { animation: t-arm-r-dance 0.45s ease-in-out infinite; }
+
+@keyframes t-happy { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-30px); } }
+.teddy-happy .t-jump { animation: t-happy 0.6s ease-in-out infinite; }
+.teddy-happy .t-arm-l { transform: rotate(130deg); }
+.teddy-happy .t-arm-r { transform: rotate(-130deg); }
+
+@keyframes t-shake { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-12deg); } 75% { transform: rotate(12deg); } }
+.teddy-shake .t-head { animation: t-shake 0.5s ease-in-out infinite; }
+.teddy-shake .t-arm-l { transform: rotate(60deg); }
+.teddy-shake .t-arm-r { transform: rotate(-60deg); }
+
+@keyframes t-sneeze { 0%, 55% { transform: rotate(-14deg) translateY(-4px); } 65% { transform: rotate(16deg) translateY(6px); } 100% { transform: rotate(0); } }
+.teddy-sneeze .t-head { animation: t-sneeze 1.4s ease-in forwards; }
+
+.teddy-surprised .t-arm-l { transform: rotate(60deg); }
+.teddy-surprised .t-arm-r { transform: rotate(-60deg); }
+.teddy-surprised .t-jump { animation: t-happy 0.5s ease-out 1; }
+
+.teddy-cover .t-arm-l { transform: rotate(152deg) translate(-6px, 4px); }
+.teddy-cover .t-arm-r { transform: rotate(-152deg) translate(6px, 4px); }
+
+.teddy-point .t-arm-r { transform: rotate(-90deg); }
+.teddy-point .t-jump { animation: t-bob 1.6s ease-in-out infinite; }
+
+.teddy-yuck .t-head { animation: t-shake 0.6s ease-in-out 2; }
+.teddy-yuck .t-arm-l { transform: rotate(150deg); }
+
+.teddy-think .t-arm-r { transform: rotate(-150deg); }
+.teddy-think .t-head { transform: rotate(-8deg); }
+
+@keyframes zzz { 0% { opacity: 0; transform: translate(0, 10px); } 50% { opacity: 1; } 100% { opacity: 0; transform: translate(14px, -20px); } }
+.zzz { animation: zzz 2s ease-in-out infinite; }
+
+/* ---------- Monster moods ---------- */
+.monster .m-bounce { transform-origin: 150px 290px; }
+@keyframes m-idle { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.03, 0.97); } }
+.monster-idle .m-bounce, .monster-open .m-bounce { animation: m-idle 1.6s ease-in-out infinite; }
+@keyframes m-chomp { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.1); } }
+.m-chomp { animation: m-chomp 0.18s ease-in-out infinite; transform-origin: 150px 178px; }
+@keyframes m-open { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+.m-open { animation: m-open 1s ease-in-out infinite; transform-origin: 150px 178px; }
+@keyframes m-no { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-7deg); } 75% { transform: rotate(7deg); } }
+.monster-no .m-bounce { animation: m-no 0.45s ease-in-out 3; }
+@keyframes m-happy { 0%, 100% { transform: translateY(0) scale(1, 1); } 30% { transform: translateY(-40px) scale(0.95, 1.05); } 60% { transform: translateY(0) scale(1.08, 0.92); } }
+.monster-happy .m-bounce { animation: m-happy 0.7s ease-in-out infinite; }
+@keyframes m-burp { 0%, 100% { transform: scale(1); } 40% { transform: scale(1.12, 0.92); } }
+.monster-burp .m-bounce { animation: m-burp 0.7s ease-in-out 1; }
+
+@keyframes m-sad { 0%, 100% { transform: translateY(0) scale(1, 1); } 50% { transform: translateY(6px) scale(1.03, 0.96); } }
+.monster-sad .m-bounce { animation: m-sad 2.2s ease-in-out infinite; }
+@keyframes m-tear { 0% { transform: translateY(0); opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { transform: translateY(46px); opacity: 0; } }
+.m-tear { animation: m-tear 1.6s ease-in infinite; }
+
+@keyframes carry-walk { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-14px) rotate(3deg); } }
+
+@keyframes m-sneaky { 0%, 100% { transform: rotate(-5deg) translateY(0); } 50% { transform: rotate(5deg) translateY(-6px); } }
+.monster-sneaky .m-bounce { animation: m-sneaky 0.9s ease-in-out infinite; }
+@keyframes m-scheme { 0%, 100% { transform: translateX(-8px); } 50% { transform: translateX(4px); } }
+.m-scheme { animation: m-scheme 1.8s ease-in-out infinite; }
+@keyframes t-sad { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg) translateY(3px); } }
+.teddy-sad .t-head { animation: t-sad 1.6s ease-in-out infinite; }
+.teddy-sad .t-arm-l { transform: rotate(10deg); }
+.teddy-sad .t-arm-r { transform: rotate(-10deg); }
+
+/* ---------- misc ---------- */
+@keyframes stink { 0%, 100% { transform: translateY(0); opacity: 0.9; } 50% { transform: translateY(-8px); opacity: 0.5; } }
+.stink { animation: stink 1.4s ease-in-out infinite; }
+
+@keyframes dance-shape {
+  0%, 100% { transform: translateY(0) rotate(-10deg) scale(1, 1); }
+  25% { transform: translateY(-50px) rotate(0deg) scale(0.95, 1.05); }
+  50% { transform: translateY(0) rotate(10deg) scale(1.08, 0.92); }
+  75% { transform: translateY(-30px) rotate(0deg) scale(1, 1); }
+}
+
+@keyframes draw-path {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes kite-bob {
+  0%, 100% { transform: translate(0, 0) rotate(-5deg); }
+  50% { transform: translate(6px, -14px) rotate(5deg); }
+}
+
+@keyframes fly-away {
+  0% { transform: translate(0, 0) rotate(0) scale(1); }
+  20% { transform: translate(-20px, 30px) rotate(-10deg) scale(1.05); }
+  100% { transform: translate(var(--fx, 200px), -1100px) rotate(var(--fr, 40deg)) scale(0.4); }
+}
+
+@keyframes fly-star {
+  0% { transform: translate(var(--sx), var(--sy)) scale(0.6) rotate(0); opacity: 1; }
+  30% { transform: translate(calc(var(--sx) + (var(--ex) - var(--sx)) * 0.25), calc(var(--sy) - 120px)) scale(1.6) rotate(140deg); }
+  100% { transform: translate(var(--ex), var(--ey)) scale(0.6) rotate(360deg); opacity: 1; }
+}
+
+@keyframes march-in {
+  from { transform: translateX(-1100px); }
+  to { transform: translateX(0); }
+}
+@keyframes march-step {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-22px) rotate(4deg); }
+}
+
+@keyframes curtain-l { to { transform: translateX(-100%); } }
+@keyframes curtain-r { to { transform: translateX(100%); } }
+
+@keyframes tower-wobble {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-4deg); }
+  75% { transform: rotate(4deg); }
+}
+
+@keyframes bounce-arrow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(16px); }
+}
+
+/* ---------- "tap here" hints for little fingers ---------- */
+@keyframes tap-hand {
+  0%, 100% { transform: translate(34px, 46px) rotate(-14deg); }
+  40% { transform: translate(0, 0) rotate(-14deg) scale(1); }
+  50% { transform: translate(0, 4px) rotate(-14deg) scale(0.86); }
+  62% { transform: translate(0, 0) rotate(-14deg) scale(1); }
+}
+@keyframes tap-ring {
+  0%, 45% { transform: scale(0.3); opacity: 0; }
+  52% { transform: scale(0.45); opacity: 1; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+@keyframes tappable {
+  0%, 100% { filter: drop-shadow(0 0 3px rgba(255, 214, 10, 0.5)); transform: scale(1); }
+  50% { filter: drop-shadow(0 0 6px #fff) drop-shadow(0 0 16px rgba(255, 196, 0, 1)); transform: scale(1.04); }
+}
+/* gentle "you can tap me" glow on everything tappable */
+.tappable { animation: tappable 1.6s ease-in-out infinite; transform-origin: 50% 50%; transform-box: fill-box; }
